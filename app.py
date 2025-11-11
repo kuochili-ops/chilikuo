@@ -11,8 +11,12 @@ st.write("輸入主成分，顯示藥品代碼、藥品名稱、數量加總")
 ingredient = st.text_input("請輸入主成分")
 
 if ingredient:
-    # 篩選含有主成分的資料
-    filtered = df[df['藥品名稱'].str.contains(ingredient, case=False, na=False)]
+    # 篩選含有主成分的資料if "藥品名稱" in df.columns:
+        filtered = df[df["藥品名稱"].str.contains(ingredient, case=False, na=False)]
+        result = filtered.groupby(["藥品代碼", "藥品名稱"], as_index=False)["數量"].sum()
+        st.dataframe(result)
+    else:
+        st.error("找不到『藥品名稱』欄位，請檢查 CSV 檔案格式")
     
     # 依藥品代碼與名稱加總數量
     result = filtered.groupby(['藥品代碼', '藥品名稱'], as_index=False)['數量'].sum()
@@ -23,6 +27,7 @@ if ingredient:
     # 顯示總數量
     total = result['數量'].sum()
     st.write(f"👉 主成分 **{ingredient}** 的總數量：{total}")
+
 
 
 
