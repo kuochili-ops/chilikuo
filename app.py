@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # 讀取 CSV 檔案
-df = pd.read_csv("20025 mount.csv", sep="\t", encoding="utf-8", errors="ignore")
+df = pd.read_csv("20025 mount.csv", sep="\t", encoding="utf-8")
 st.title("藥品查詢介面")
 st.write("輸入主成分，顯示藥品代碼、藥品名稱、數量加總")
 
@@ -22,6 +22,7 @@ if ingredient:
     # 顯示總數量
     total = result['數量'].sum()
     st.write(f"👉 主成分 **{ingredient}** 的總數量：{total}")
+
 
 
 
